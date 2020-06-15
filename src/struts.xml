@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="MyPackage" namespace="/" extends="struts-default">
+        <interceptors>
+            <!-- 注册拦截器 -->
+            <!-- 注册拦截器栈 -->
+            <interceptor name="MyInterceptor" class="com.intercept.MyIntercept">
+            </interceptor>
+            <interceptor-stack name="InterceptorStack">
+                <interceptor-ref name="MyInterceptor"></interceptor-ref>
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <!-- 指定包中默认拦截器栈 -->
+        <default-interceptor-ref name="InterceptorStack"></default-interceptor-ref>
+
+        <global-results>
+            <result name="tologin" type="redirect">/login.jsp</result>
+        </global-results>
+
+        <action name="LoginAction" class="com.web.UserAction" method="login">
+            <result name="success" type="redirect">/index.jsp</result>
+            <!--<result name="fail">/login.jsp</result>-->
+        </action>
+
+        <action name="RegisterAction" class="com.web.UserAction" method="register">
+            <result name="success" type="redirect">/login.jsp</result>
+            <result name="fail" type="redirect">/register.jsp</result>
+        </action>
+
+        <action name="defaultAction" class="com.web.UserAction" method="execute">
+            <!-- 转发-->
+            <result name="default" type="chain">TestAction</result>
+            <!--重定向-->
+            <result name="redirect" type="redirectAction">
+                <param name="actionName">LoginAction</param>
+                <param name="username">${#request.username}</param>
+                <param name="password">${#request.password}</param>
+            </result>
+        </action>
+
+        <action name="TestAction_*" class="com.web.TestAction" method="{1}"></action>
+    </package>
+</struts>
