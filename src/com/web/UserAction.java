@@ -42,6 +42,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
     public String register() throws SQLException {
         UserService userService = new UserService();
         boolean isexist = userService.findUser(u);
+        System.out.println("register");
         if(isexist){
 //            ActionContext actionContext = ActionContext.getContext();
 //            Map session = actionContext.getSession();

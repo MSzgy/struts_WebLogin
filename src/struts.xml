@@ -10,10 +10,11 @@
         <interceptors>
             <!-- 注册拦截器 -->
             <!-- 注册拦截器栈 -->
-            <interceptor name="MyInterceptor" class="com.intercept.MyIntercept">
-            </interceptor>
+            <interceptor name="MyInterceptor" class="com.intercept.MyIntercept"></interceptor>
             <interceptor-stack name="InterceptorStack">
-                <interceptor-ref name="MyInterceptor"></interceptor-ref>
+                <interceptor-ref name="MyInterceptor">
+                    <param name="excludeMethods">login,register</param>
+                </interceptor-ref>
                 <interceptor-ref name="defaultStack"></interceptor-ref>
             </interceptor-stack>
         </interceptors>

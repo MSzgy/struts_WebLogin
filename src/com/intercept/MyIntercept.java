@@ -17,11 +17,12 @@ public class MyIntercept extends MethodFilterInterceptor {
     protected String doIntercept(ActionInvocation actionInvocation) throws Exception {
         //自动放行
         Object user = ActionContext.getContext().getSession().get("User");
-//        if(user != null){
+        if(user != null){
             return actionInvocation.invoke();
-//        }
-//        else {
-//            return "tologin";
-//        }
+        }
+        else {
+            System.out.println(11);
+            return "tologin";
+        }
     }
 }
